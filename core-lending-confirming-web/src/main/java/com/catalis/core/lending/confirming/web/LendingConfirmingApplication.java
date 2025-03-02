@@ -35,7 +35,7 @@ import org.springframework.web.reactive.config.EnableWebFlux;
         ),
         servers = {
                 @Server(
-                        url = "http://core.catalis.vc/loan-origination",
+                        url = "http://core.catalis.vc/confirming",
                         description = "Development Environment"
                 ),
                 @Server(
