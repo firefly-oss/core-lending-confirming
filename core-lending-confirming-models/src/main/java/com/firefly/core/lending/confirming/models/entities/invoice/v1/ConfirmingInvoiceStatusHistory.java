@@ -10,6 +10,7 @@ import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -20,10 +21,10 @@ public class ConfirmingInvoiceStatusHistory {
 
     @Id
     @Column("confirming_invoice_status_history_id")
-    private Long confirmingInvoiceStatusHistoryId;
+    private UUID confirmingInvoiceStatusHistoryId;
 
     @Column("confirming_invoice_id")
-    private Long confirmingInvoiceId; // references ConfirmingInvoice
+    private UUID confirmingInvoiceId; // references ConfirmingInvoice
 
     @Column("old_status")
     private InvoiceStatusEnum oldStatus;

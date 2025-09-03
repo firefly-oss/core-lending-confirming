@@ -13,6 +13,7 @@ import org.springframework.data.relational.core.mapping.Table;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -23,13 +24,13 @@ public class ConfirmingInvoice {
 
     @Id
     @Column("confirming_invoice_id")
-    private Long confirmingInvoiceId;
+    private UUID confirmingInvoiceId;
 
     @Column("confirming_agreement_id")
-    private Long confirmingAgreementId;  // references ConfirmingAgreement
+    private UUID confirmingAgreementId;  // references ConfirmingAgreement
 
     @Column("confirming_supplier_id")
-    private Long confirmingSupplierId;   // references ConfirmingSupplier
+    private UUID confirmingSupplierId;   // references ConfirmingSupplier
 
     @Column("invoice_number")
     private String invoiceNumber;
@@ -59,7 +60,7 @@ public class ConfirmingInvoice {
     private LocalDate confirmationDate;
 
     @Column("document_reference")
-    private Long documentReference; // pointer to Document Manager references
+    private UUID documentReference; // pointer to Document Manager references
 
     @Column("created_at")
     private LocalDateTime createdAt;

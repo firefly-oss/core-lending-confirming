@@ -6,8 +6,10 @@ import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.UUID;
+
 @NoRepositoryBean
 public interface BaseRepository<T, ID> extends ReactiveCrudRepository<T, ID> {
     Flux<T> findAllBy(Pageable pageable);
-    Mono<Long> count();
+    Mono<Long> count(); // Keep count operations as Long as per requirements
 }

@@ -12,6 +12,7 @@ import org.springframework.data.relational.core.mapping.Table;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -22,13 +23,13 @@ public class ConfirmingAgreement {
 
     @Id
     @Column("confirming_agreement_id")
-    private Long confirmingAgreementId;
+    private UUID confirmingAgreementId;
 
     @Column("contract_id")
-    private Long contractId;
+    private UUID contractId;
 
     @Column("customer_id")
-    private Long customerId;  // Buyer’s ID
+    private UUID customerId;  // Buyer’s ID
 
     @Column("agreement_status")
     private AgreementStatusEnum agreementStatus;

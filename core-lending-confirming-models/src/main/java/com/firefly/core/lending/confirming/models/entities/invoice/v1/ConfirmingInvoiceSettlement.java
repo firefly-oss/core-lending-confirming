@@ -11,6 +11,7 @@ import org.springframework.data.relational.core.mapping.Table;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -21,13 +22,13 @@ public class ConfirmingInvoiceSettlement {
 
     @Id
     @Column("confirming_invoice_settlement_id")
-    private Long confirmingInvoiceSettlementId;
+    private UUID confirmingInvoiceSettlementId;
 
     @Column("confirming_invoice_id")
-    private Long confirmingInvoiceId; // references ConfirmingInvoice
+    private UUID confirmingInvoiceId; // references ConfirmingInvoice
 
     @Column("transaction_id")
-    private Long transactionId;       // external Payment/Transaction reference
+    private UUID transactionId;       // external Payment/Transaction reference
 
     @Column("settlement_date")
     private LocalDate settlementDate;

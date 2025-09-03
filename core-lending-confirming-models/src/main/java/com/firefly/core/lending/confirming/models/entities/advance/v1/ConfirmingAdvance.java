@@ -11,6 +11,7 @@ import org.springframework.data.relational.core.mapping.Table;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -21,13 +22,13 @@ public class ConfirmingAdvance {
 
     @Id
     @Column("confirming_advance_id")
-    private Long confirmingAdvanceId;
+    private UUID confirmingAdvanceId;
 
     @Column("confirming_invoice_id")
-    private Long confirmingInvoiceId;  // references ConfirmingInvoice
+    private UUID confirmingInvoiceId;  // references ConfirmingInvoice
 
     @Column("transaction_id")
-    private Long transactionId;        // external Payment/Transaction reference
+    private UUID transactionId;        // external Payment/Transaction reference
 
     @Column("advance_amount")
     private BigDecimal advanceAmount;

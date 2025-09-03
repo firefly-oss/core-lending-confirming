@@ -10,6 +10,7 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -20,13 +21,13 @@ public class ConfirmingSupplier {
 
     @Id
     @Column("confirming_supplier_id")
-    private Long confirmingSupplierId;
+    private UUID confirmingSupplierId;
 
     @Column("confirming_agreement_id")
-    private Long confirmingAgreementId;
+    private UUID confirmingAgreementId;
 
     @Column("supplier_customer_id")
-    private Long supplierCustomerId; // External reference for the supplier
+    private UUID supplierCustomerId; // External reference for the supplier
 
     @Column("supplier_name")
     private String supplierName;

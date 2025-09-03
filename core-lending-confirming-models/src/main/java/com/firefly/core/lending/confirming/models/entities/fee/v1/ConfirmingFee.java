@@ -11,6 +11,7 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -21,10 +22,10 @@ public class ConfirmingFee {
 
     @Id
     @Column("confirming_fee_id")
-    private Long confirmingFeeId;
+    private UUID confirmingFeeId;
 
     @Column("confirming_agreement_id")
-    private Long confirmingAgreementId; // references ConfirmingAgreement
+    private UUID confirmingAgreementId; // references ConfirmingAgreement
 
     @Column("fee_type")
     private FeeTypeEnum feeType;
