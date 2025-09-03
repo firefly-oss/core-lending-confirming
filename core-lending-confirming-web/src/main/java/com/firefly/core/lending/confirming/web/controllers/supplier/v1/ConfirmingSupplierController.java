@@ -6,10 +6,13 @@ import com.firefly.core.lending.confirming.core.services.supplier.v1.ConfirmingS
 import com.firefly.core.lending.confirming.interfaces.dtos.supplier.v1.ConfirmingSupplierDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/confirming-agreements/{confirmingAgreementId}/suppliers")
@@ -22,7 +25,7 @@ public class ConfirmingSupplierController {
     @GetMapping
     @Operation(summary = "List or search suppliers under a confirming agreement")
     public Mono<ResponseEntity<PaginationResponse<ConfirmingSupplierDTO>>> findAll(
-            @PathVariable Long confirmingAgreementId,
+            @PathVariable UUID confirmingAgreementId,
             @ModelAttribute FilterRequest<ConfirmingSupplierDTO> filterRequest) {
         return service.findAll(confirmingAgreementId, filterRequest)
                 .map(ResponseEntity::ok);
@@ -31,8 +34,8 @@ public class ConfirmingSupplierController {
     @PostMapping
     @Operation(summary = "Create a new supplier record under a confirming agreement")
     public Mono<ResponseEntity<ConfirmingSupplierDTO>> create(
-            @PathVariable Long confirmingAgreementId,
-            @RequestBody ConfirmingSupplierDTO dto) {
+            @PathVariable UUID confirmingAgreementId,
+            @Valid @RequestBody ConfirmingSupplierDTO dto) {
 
         return service.create(confirmingAgreementId, dto)
                 .map(ResponseEntity::ok);
@@ -41,8 +44,8 @@ public class ConfirmingSupplierController {
     @GetMapping("/{confirmingSupplierId}")
     @Operation(summary = "Get a supplier record by ID")
     public Mono<ResponseEntity<ConfirmingSupplierDTO>> getById(
-            @PathVariable Long confirmingAgreementId,
-            @PathVariable Long confirmingSupplierId) {
+            @PathVariable UUID confirmingAgreementId,
+            @PathVariable UUID confirmingSupplierId) {
 
         return service.getById(confirmingAgreementId, confirmingSupplierId)
                 .map(ResponseEntity::ok);
@@ -51,9 +54,9 @@ public class ConfirmingSupplierController {
     @PutMapping("/{confirmingSupplierId}")
     @Operation(summary = "Update a supplier record")
     public Mono<ResponseEntity<ConfirmingSupplierDTO>> update(
-            @PathVariable Long confirmingAgreementId,
-            @PathVariable Long confirmingSupplierId,
-            @RequestBody ConfirmingSupplierDTO dto) {
+            @PathVariable UUID confirmingAgreementId,
+            @PathVariable UUID confirmingSupplierId,
+            @Valid @RequestBody ConfirmingSupplierDTO dto) {
 
         return service.update(confirmingAgreementId, confirmingSupplierId, dto)
                 .map(ResponseEntity::ok);
@@ -62,8 +65,8 @@ public class ConfirmingSupplierController {
     @DeleteMapping("/{confirmingSupplierId}")
     @Operation(summary = "Delete a supplier record")
     public Mono<ResponseEntity<Void>> delete(
-            @PathVariable Long confirmingAgreementId,
-            @PathVariable Long confirmingSupplierId) {
+            @PathVariable UUID confirmingAgreementId,
+            @PathVariable UUID confirmingSupplierId) {
 
         return service.delete(confirmingAgreementId, confirmingSupplierId)
                 .thenReturn(ResponseEntity.noContent().build());

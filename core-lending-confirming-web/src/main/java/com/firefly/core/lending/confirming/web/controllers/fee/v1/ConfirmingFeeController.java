@@ -6,10 +6,13 @@ import com.firefly.core.lending.confirming.core.services.fee.v1.ConfirmingFeeSer
 import com.firefly.core.lending.confirming.interfaces.dtos.fee.v1.ConfirmingFeeDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/confirming-agreements/{confirmingAgreementId}/fees")
@@ -22,7 +25,7 @@ public class ConfirmingFeeController {
     @GetMapping
     @Operation(summary = "List or search fees for a confirming agreement")
     public Mono<ResponseEntity<PaginationResponse<ConfirmingFeeDTO>>> findAll(
-            @PathVariable Long confirmingAgreementId,
+            @PathVariable UUID confirmingAgreementId,
             @ModelAttribute FilterRequest<ConfirmingFeeDTO> filterRequest) {
 
         return service.findAll(confirmingAgreementId, filterRequest)
@@ -32,8 +35,8 @@ public class ConfirmingFeeController {
     @PostMapping
     @Operation(summary = "Create a new fee configuration")
     public Mono<ResponseEntity<ConfirmingFeeDTO>> create(
-            @PathVariable Long confirmingAgreementId,
-            @RequestBody ConfirmingFeeDTO dto) {
+            @PathVariable UUID confirmingAgreementId,
+            @Valid @RequestBody ConfirmingFeeDTO dto) {
 
         return service.create(confirmingAgreementId, dto)
                 .map(ResponseEntity::ok);
@@ -42,8 +45,8 @@ public class ConfirmingFeeController {
     @GetMapping("/{confirmingFeeId}")
     @Operation(summary = "Get a fee configuration by ID")
     public Mono<ResponseEntity<ConfirmingFeeDTO>> getById(
-            @PathVariable Long confirmingAgreementId,
-            @PathVariable Long confirmingFeeId) {
+            @PathVariable UUID confirmingAgreementId,
+            @PathVariable UUID confirmingFeeId) {
 
         return service.getById(confirmingAgreementId, confirmingFeeId)
                 .map(ResponseEntity::ok);
@@ -52,9 +55,9 @@ public class ConfirmingFeeController {
     @PutMapping("/{confirmingFeeId}")
     @Operation(summary = "Update a fee configuration")
     public Mono<ResponseEntity<ConfirmingFeeDTO>> update(
-            @PathVariable Long confirmingAgreementId,
-            @PathVariable Long confirmingFeeId,
-            @RequestBody ConfirmingFeeDTO dto) {
+            @PathVariable UUID confirmingAgreementId,
+            @PathVariable UUID confirmingFeeId,
+            @Valid @RequestBody ConfirmingFeeDTO dto) {
 
         return service.update(confirmingAgreementId, confirmingFeeId, dto)
                 .map(ResponseEntity::ok);
@@ -63,8 +66,8 @@ public class ConfirmingFeeController {
     @DeleteMapping("/{confirmingFeeId}")
     @Operation(summary = "Delete a fee configuration")
     public Mono<ResponseEntity<Void>> delete(
-            @PathVariable Long confirmingAgreementId,
-            @PathVariable Long confirmingFeeId) {
+            @PathVariable UUID confirmingAgreementId,
+            @PathVariable UUID confirmingFeeId) {
 
         return service.delete(confirmingAgreementId, confirmingFeeId)
                 .thenReturn(ResponseEntity.noContent().build());

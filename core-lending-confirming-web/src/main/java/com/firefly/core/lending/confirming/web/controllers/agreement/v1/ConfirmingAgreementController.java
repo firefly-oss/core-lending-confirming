@@ -6,10 +6,13 @@ import com.firefly.core.lending.confirming.core.services.agreement.v1.Confirming
 import com.firefly.core.lending.confirming.interfaces.dtos.agreement.v1.ConfirmingAgreementDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/confirming-agreements")
@@ -29,14 +32,14 @@ public class ConfirmingAgreementController {
 
     @PostMapping
     @Operation(summary = "Create a new confirming agreement")
-    public Mono<ResponseEntity<ConfirmingAgreementDTO>> create(@RequestBody ConfirmingAgreementDTO dto) {
+    public Mono<ResponseEntity<ConfirmingAgreementDTO>> create(@Valid @RequestBody ConfirmingAgreementDTO dto) {
         return service.create(dto)
                 .map(ResponseEntity::ok);
     }
 
     @GetMapping("/{confirmingAgreementId}")
     @Operation(summary = "Get a confirming agreement by ID")
-    public Mono<ResponseEntity<ConfirmingAgreementDTO>> getById(@PathVariable Long confirmingAgreementId) {
+    public Mono<ResponseEntity<ConfirmingAgreementDTO>> getById(@PathVariable UUID confirmingAgreementId) {
         return service.getById(confirmingAgreementId)
                 .map(ResponseEntity::ok);
     }
@@ -44,15 +47,15 @@ public class ConfirmingAgreementController {
     @PutMapping("/{confirmingAgreementId}")
     @Operation(summary = "Update a confirming agreement")
     public Mono<ResponseEntity<ConfirmingAgreementDTO>> update(
-            @PathVariable Long confirmingAgreementId,
-            @RequestBody ConfirmingAgreementDTO dto) {
+            @PathVariable UUID confirmingAgreementId,
+            @Valid @RequestBody ConfirmingAgreementDTO dto) {
         return service.update(confirmingAgreementId, dto)
                 .map(ResponseEntity::ok);
     }
 
     @DeleteMapping("/{confirmingAgreementId}")
     @Operation(summary = "Delete a confirming agreement")
-    public Mono<ResponseEntity<Void>> delete(@PathVariable Long confirmingAgreementId) {
+    public Mono<ResponseEntity<Void>> delete(@PathVariable UUID confirmingAgreementId) {
         return service.delete(confirmingAgreementId)
                 .thenReturn(ResponseEntity.noContent().build());
     }
