@@ -18,6 +18,7 @@
         <module>core-lending-confirming-interfaces</module>
         <module>core-lending-confirming-models</module>
         <module>core-lending-confirming-web</module>
+        <module>core-lending-confirming-sdk</module>
     </modules>
 
 
@@ -38,6 +39,11 @@
             <dependency>
                 <groupId>com.firefly</groupId>
                 <artifactId>core-lending-confirming-models</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.firefly</groupId>
+                <artifactId>core-lending-confirming-sdk</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

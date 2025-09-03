@@ -1,0 +1,2660 @@
+openapi: 3.0.1
+info:
+  title: core-lending-confirming
+  description: Confirming Core Application
+  contact:
+    name: Firefly Software Solutions Inc
+    email: dev@getfirefly.io
+  version: 1.0.0
+servers:
+  - url: http://core.catalis.vc/confirming
+    description: Development Environment
+  - url: /
+    description: Local Development Environment
+tags:
+  - name: ConfirmingSupplier
+    description: Supplier operations under a confirming agreement.
+  - name: ConfirmingInvoiceStatusHistory
+    description: Tracks the status transitions of a confirming invoice.
+  - name: ConfirmingAdvance
+    description: Early payment advances for a confirming invoice.
+  - name: ConfirmingInvoice
+    description: Invoices confirmed by the buyer, under a confirming agreement.
+  - name: ConfirmingAgreement
+    description: Operations on confirming agreements (reverse factoring) for a buyer.
+  - name: ConfirmingInvoiceSettlement
+    description: Settlement records for an invoice in a confirming program.
+  - name: ConfirmingFee
+    description: Fee configurations under a confirming agreement.
+paths:
+  /api/v1/confirming-agreements/{confirmingAgreementId}:
+    get:
+      tags:
+        - ConfirmingAgreement
+      summary: Get a confirming agreement by ID
+      operationId: getById
+      parameters:
+        - name: confirmingAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ConfirmingAgreementDTO'
+    put:
+      tags:
+        - ConfirmingAgreement
+      summary: Update a confirming agreement
+      operationId: update
+      parameters:
+        - name: confirmingAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfirmingAgreementDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ConfirmingAgreementDTO'
+    delete:
+      tags:
+        - ConfirmingAgreement
+      summary: Delete a confirming agreement
+      operationId: delete
+      parameters:
+        - name: confirmingAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+  /api/v1/confirming-agreements/{confirmingAgreementId}/suppliers/{confirmingSupplierId}:
+    get:
+      tags:
+        - ConfirmingSupplier
+      summary: Get a supplier record by ID
+      operationId: getById_1
+      parameters:
+        - name: confirmingAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: confirmingSupplierId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ConfirmingSupplierDTO'
+    put:
+      tags:
+        - ConfirmingSupplier
+      summary: Update a supplier record
+      operationId: update_1
+      parameters:
+        - name: confirmingAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: confirmingSupplierId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfirmingSupplierDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ConfirmingSupplierDTO'
+    delete:
+      tags:
+        - ConfirmingSupplier
+      summary: Delete a supplier record
+      operationId: delete_1
+      parameters:
+        - name: confirmingAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: confirmingSupplierId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+  /api/v1/confirming-agreements/{confirmingAgreementId}/invoices/{confirmingInvoiceId}:
+    get:
+      tags:
+        - ConfirmingInvoice
+      summary: Get a confirming invoice by ID
+      operationId: getById_2
+      parameters:
+        - name: confirmingAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: confirmingInvoiceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ConfirmingInvoiceDTO'
+    put:
+      tags:
+        - ConfirmingInvoice
+      summary: Update a confirming invoice
+      operationId: update_2
+      parameters:
+        - name: confirmingAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: confirmingInvoiceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfirmingInvoiceDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ConfirmingInvoiceDTO'
+    delete:
+      tags:
+        - ConfirmingInvoice
+      summary: Delete a confirming invoice
+      operationId: delete_2
+      parameters:
+        - name: confirmingAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: confirmingInvoiceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+  /api/v1/confirming-agreements/{confirmingAgreementId}/invoices/{confirmingInvoiceId}/status-history/{confirmingInvoiceStatusHistoryId}:
+    get:
+      tags:
+        - ConfirmingInvoiceStatusHistory
+      summary: Get an invoice status history entry by ID
+      operationId: getById_3
+      parameters:
+        - name: confirmingAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: confirmingInvoiceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: confirmingInvoiceStatusHistoryId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ConfirmingInvoiceStatusHistoryDTO'
+    put:
+      tags:
+        - ConfirmingInvoiceStatusHistory
+      summary: Update an invoice status history entry
+      operationId: update_3
+      parameters:
+        - name: confirmingAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: confirmingInvoiceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: confirmingInvoiceStatusHistoryId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfirmingInvoiceStatusHistoryDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ConfirmingInvoiceStatusHistoryDTO'
+    delete:
+      tags:
+        - ConfirmingInvoiceStatusHistory
+      summary: Delete an invoice status history entry
+      operationId: delete_3
+      parameters:
+        - name: confirmingAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: confirmingInvoiceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: confirmingInvoiceStatusHistoryId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+  /api/v1/confirming-agreements/{confirmingAgreementId}/invoices/{confirmingInvoiceId}/settlements/{confirmingInvoiceSettlementId}:
+    get:
+      tags:
+        - ConfirmingInvoiceSettlement
+      summary: Get a settlement record by ID
+      operationId: getById_4
+      parameters:
+        - name: confirmingAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: confirmingInvoiceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: confirmingInvoiceSettlementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ConfirmingInvoiceSettlementDTO'
+    put:
+      tags:
+        - ConfirmingInvoiceSettlement
+      summary: Update a settlement record
+      operationId: update_4
+      parameters:
+        - name: confirmingAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: confirmingInvoiceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: confirmingInvoiceSettlementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfirmingInvoiceSettlementDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ConfirmingInvoiceSettlementDTO'
+    delete:
+      tags:
+        - ConfirmingInvoiceSettlement
+      summary: Delete a settlement record
+      operationId: delete_4
+      parameters:
+        - name: confirmingAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: confirmingInvoiceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: confirmingInvoiceSettlementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+  /api/v1/confirming-agreements/{confirmingAgreementId}/invoices/{confirmingInvoiceId}/advances/{confirmingAdvanceId}:
+    get:
+      tags:
+        - ConfirmingAdvance
+      summary: Get an advance record by ID
+      operationId: getById_5
+      parameters:
+        - name: confirmingAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: confirmingInvoiceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: confirmingAdvanceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ConfirmingAdvanceDTO'
+    put:
+      tags:
+        - ConfirmingAdvance
+      summary: Update an advance record
+      operationId: update_5
+      parameters:
+        - name: confirmingAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: confirmingInvoiceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: confirmingAdvanceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfirmingAdvanceDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ConfirmingAdvanceDTO'
+    delete:
+      tags:
+        - ConfirmingAdvance
+      summary: Delete an advance record
+      operationId: delete_5
+      parameters:
+        - name: confirmingAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: confirmingInvoiceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: confirmingAdvanceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+  /api/v1/confirming-agreements/{confirmingAgreementId}/fees/{confirmingFeeId}:
+    get:
+      tags:
+        - ConfirmingFee
+      summary: Get a fee configuration by ID
+      operationId: getById_6
+      parameters:
+        - name: confirmingAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: confirmingFeeId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ConfirmingFeeDTO'
+    put:
+      tags:
+        - ConfirmingFee
+      summary: Update a fee configuration
+      operationId: update_6
+      parameters:
+        - name: confirmingAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: confirmingFeeId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfirmingFeeDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ConfirmingFeeDTO'
+    delete:
+      tags:
+        - ConfirmingFee
+      summary: Delete a fee configuration
+      operationId: delete_6
+      parameters:
+        - name: confirmingAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: confirmingFeeId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+  /api/v1/confirming-agreements:
+    get:
+      tags:
+        - ConfirmingAgreement
+      summary: List or search confirming agreements
+      operationId: findAll
+      parameters:
+        - name: pagination.pageNumber
+          in: query
+          description: Page number (0-based)
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: pagination.pageSize
+          in: query
+          description: Number of items per page
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: pagination.sortBy
+          in: query
+          description: Field to sort by
+          required: false
+          schema:
+            type: string
+        - name: pagination.sortDirection
+          in: query
+          description: Sort direction (ASC or DESC)
+          required: false
+          schema:
+            type: string
+            default: DESC
+        - name: options.caseInsensitiveStrings
+          in: query
+          description: Enable case-insensitive string filtering
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: options.includeInheritedFields
+          in: query
+          description: Include fields from parent classes
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: filters.contractId
+          in: query
+          description: Exact filter for contract id
+          required: false
+          schema:
+            type: string
+        - name: filters.customerId
+          in: query
+          description: Exact filter for customer id
+          required: false
+          schema:
+            type: string
+        - name: filters.agreementStatus
+          in: query
+          description: Exact filter for agreement status
+          required: false
+          schema:
+            type: string
+            enum:
+              - ACTIVE
+              - CLOSED
+              - SUSPENDED
+              - TERMINATED
+        - name: filters.startDate
+          in: query
+          description: Exact filter for start date
+          required: false
+          schema:
+            type: string
+        - name: filters.endDate
+          in: query
+          description: Exact filter for end date
+          required: false
+          schema:
+            type: string
+        - name: filters.creditLimit
+          in: query
+          description: Exact filter for credit limit
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[creditLimit].from
+          in: query
+          description: Filter credit limit from value
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[creditLimit].to
+          in: query
+          description: Filter credit limit to value
+          required: false
+          schema:
+            type: string
+        - name: filters.supplierEarlyPaymentOption
+          in: query
+          description: Exact filter for supplier early payment option
+          required: false
+          schema:
+            type: boolean
+        - name: filters.defaultAdvanceRate
+          in: query
+          description: Exact filter for default advance rate
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[defaultAdvanceRate].from
+          in: query
+          description: Filter default advance rate from value
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[defaultAdvanceRate].to
+          in: query
+          description: Filter default advance rate to value
+          required: false
+          schema:
+            type: string
+        - name: filters.remarks
+          in: query
+          description: Exact filter for remarks
+          required: false
+          schema:
+            type: string
+        - name: filters.createdAt
+          in: query
+          description: Exact filter for created at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].from
+          in: query
+          description: Filter created at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].to
+          in: query
+          description: Filter created at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: filters.updatedAt
+          in: query
+          description: Exact filter for updated at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].from
+          in: query
+          description: Filter updated at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].to
+          in: query
+          description: Filter updated at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PaginationResponseConfirmingAgreementDTO'
+    post:
+      tags:
+        - ConfirmingAgreement
+      summary: Create a new confirming agreement
+      operationId: create
+      parameters:
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfirmingAgreementDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ConfirmingAgreementDTO'
+  /api/v1/confirming-agreements/{confirmingAgreementId}/suppliers:
+    get:
+      tags:
+        - ConfirmingSupplier
+      summary: List or search suppliers under a confirming agreement
+      operationId: findAll_1
+      parameters:
+        - name: confirmingAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: pagination.pageNumber
+          in: query
+          description: Page number (0-based)
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: pagination.pageSize
+          in: query
+          description: Number of items per page
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: pagination.sortBy
+          in: query
+          description: Field to sort by
+          required: false
+          schema:
+            type: string
+        - name: pagination.sortDirection
+          in: query
+          description: Sort direction (ASC or DESC)
+          required: false
+          schema:
+            type: string
+            default: DESC
+        - name: options.caseInsensitiveStrings
+          in: query
+          description: Enable case-insensitive string filtering
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: options.includeInheritedFields
+          in: query
+          description: Include fields from parent classes
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: filters.confirmingAgreementId
+          in: query
+          description: Exact filter for confirming agreement id
+          required: false
+          schema:
+            type: string
+        - name: filters.supplierCustomerId
+          in: query
+          description: Exact filter for supplier customer id
+          required: false
+          schema:
+            type: string
+        - name: filters.supplierName
+          in: query
+          description: Exact filter for supplier name
+          required: false
+          schema:
+            type: string
+        - name: filters.supplierIndividualLimit
+          in: query
+          description: Exact filter for supplier individual limit
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[supplierIndividualLimit].from
+          in: query
+          description: Filter supplier individual limit from value
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[supplierIndividualLimit].to
+          in: query
+          description: Filter supplier individual limit to value
+          required: false
+          schema:
+            type: string
+        - name: filters.canRequestEarlyPayment
+          in: query
+          description: Exact filter for can request early payment
+          required: false
+          schema:
+            type: boolean
+        - name: filters.remarks
+          in: query
+          description: Exact filter for remarks
+          required: false
+          schema:
+            type: string
+        - name: filters.createdAt
+          in: query
+          description: Exact filter for created at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].from
+          in: query
+          description: Filter created at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].to
+          in: query
+          description: Filter created at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: filters.updatedAt
+          in: query
+          description: Exact filter for updated at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].from
+          in: query
+          description: Filter updated at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].to
+          in: query
+          description: Filter updated at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PaginationResponseConfirmingSupplierDTO'
+    post:
+      tags:
+        - ConfirmingSupplier
+      summary: Create a new supplier record under a confirming agreement
+      operationId: create_1
+      parameters:
+        - name: confirmingAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfirmingSupplierDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ConfirmingSupplierDTO'
+  /api/v1/confirming-agreements/{confirmingAgreementId}/invoices:
+    get:
+      tags:
+        - ConfirmingInvoice
+      summary: List or search confirming invoices for an agreement
+      operationId: findAll_2
+      parameters:
+        - name: confirmingAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: pagination.pageNumber
+          in: query
+          description: Page number (0-based)
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: pagination.pageSize
+          in: query
+          description: Number of items per page
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: pagination.sortBy
+          in: query
+          description: Field to sort by
+          required: false
+          schema:
+            type: string
+        - name: pagination.sortDirection
+          in: query
+          description: Sort direction (ASC or DESC)
+          required: false
+          schema:
+            type: string
+            default: DESC
+        - name: options.caseInsensitiveStrings
+          in: query
+          description: Enable case-insensitive string filtering
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: options.includeInheritedFields
+          in: query
+          description: Include fields from parent classes
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: filters.confirmingAgreementId
+          in: query
+          description: Exact filter for confirming agreement id
+          required: false
+          schema:
+            type: string
+        - name: filters.confirmingSupplierId
+          in: query
+          description: Exact filter for confirming supplier id
+          required: false
+          schema:
+            type: string
+        - name: filters.invoiceNumber
+          in: query
+          description: Exact filter for invoice number
+          required: false
+          schema:
+            type: string
+        - name: filters.invoiceDate
+          in: query
+          description: Exact filter for invoice date
+          required: false
+          schema:
+            type: string
+        - name: filters.dueDate
+          in: query
+          description: Exact filter for due date
+          required: false
+          schema:
+            type: string
+        - name: filters.invoiceAmount
+          in: query
+          description: Exact filter for invoice amount
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[invoiceAmount].from
+          in: query
+          description: Filter invoice amount from value
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[invoiceAmount].to
+          in: query
+          description: Filter invoice amount to value
+          required: false
+          schema:
+            type: string
+        - name: filters.confirmedAmount
+          in: query
+          description: Exact filter for confirmed amount
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[confirmedAmount].from
+          in: query
+          description: Filter confirmed amount from value
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[confirmedAmount].to
+          in: query
+          description: Filter confirmed amount to value
+          required: false
+          schema:
+            type: string
+        - name: filters.currencyCode
+          in: query
+          description: Exact filter for currency code
+          required: false
+          schema:
+            type: string
+            enum:
+              - EUR
+              - USD
+              - GBP
+              - CHF
+        - name: filters.invoiceStatus
+          in: query
+          description: Exact filter for invoice status
+          required: false
+          schema:
+            type: string
+            enum:
+              - CONFIRMED
+              - EARLY_PAID
+              - SETTLED
+              - CANCELED
+              - DISPUTED
+              - DEFAULTED
+        - name: filters.isConfirmedByBuyer
+          in: query
+          description: Exact filter for is confirmed by buyer
+          required: false
+          schema:
+            type: boolean
+        - name: filters.confirmationDate
+          in: query
+          description: Exact filter for confirmation date
+          required: false
+          schema:
+            type: string
+        - name: filters.documentReference
+          in: query
+          description: Exact filter for document reference
+          required: false
+          schema:
+            type: string
+        - name: filters.createdAt
+          in: query
+          description: Exact filter for created at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].from
+          in: query
+          description: Filter created at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].to
+          in: query
+          description: Filter created at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: filters.updatedAt
+          in: query
+          description: Exact filter for updated at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].from
+          in: query
+          description: Filter updated at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].to
+          in: query
+          description: Filter updated at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PaginationResponseConfirmingInvoiceDTO'
+    post:
+      tags:
+        - ConfirmingInvoice
+      summary: Create a new confirming invoice
+      operationId: create_2
+      parameters:
+        - name: confirmingAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfirmingInvoiceDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ConfirmingInvoiceDTO'
+  /api/v1/confirming-agreements/{confirmingAgreementId}/invoices/{confirmingInvoiceId}/status-history:
+    get:
+      tags:
+        - ConfirmingInvoiceStatusHistory
+      summary: List or search invoice status history entries
+      operationId: findAll_3
+      parameters:
+        - name: confirmingAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: confirmingInvoiceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: pagination.pageNumber
+          in: query
+          description: Page number (0-based)
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: pagination.pageSize
+          in: query
+          description: Number of items per page
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: pagination.sortBy
+          in: query
+          description: Field to sort by
+          required: false
+          schema:
+            type: string
+        - name: pagination.sortDirection
+          in: query
+          description: Sort direction (ASC or DESC)
+          required: false
+          schema:
+            type: string
+            default: DESC
+        - name: options.caseInsensitiveStrings
+          in: query
+          description: Enable case-insensitive string filtering
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: options.includeInheritedFields
+          in: query
+          description: Include fields from parent classes
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: filters.confirmingInvoiceId
+          in: query
+          description: Exact filter for confirming invoice id
+          required: false
+          schema:
+            type: string
+        - name: filters.oldStatus
+          in: query
+          description: Exact filter for old status
+          required: false
+          schema:
+            type: string
+            enum:
+              - CONFIRMED
+              - EARLY_PAID
+              - SETTLED
+              - CANCELED
+              - DISPUTED
+              - DEFAULTED
+        - name: filters.newStatus
+          in: query
+          description: Exact filter for new status
+          required: false
+          schema:
+            type: string
+            enum:
+              - CONFIRMED
+              - EARLY_PAID
+              - SETTLED
+              - CANCELED
+              - DISPUTED
+              - DEFAULTED
+        - name: filters.changedAt
+          in: query
+          description: Exact filter for changed at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[changedAt].from
+          in: query
+          description: Filter changed at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[changedAt].to
+          in: query
+          description: Filter changed at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: filters.changedBy
+          in: query
+          description: Exact filter for changed by
+          required: false
+          schema:
+            type: string
+        - name: filters.reason
+          in: query
+          description: Exact filter for reason
+          required: false
+          schema:
+            type: string
+        - name: filters.createdAt
+          in: query
+          description: Exact filter for created at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].from
+          in: query
+          description: Filter created at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].to
+          in: query
+          description: Filter created at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: filters.updatedAt
+          in: query
+          description: Exact filter for updated at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].from
+          in: query
+          description: Filter updated at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].to
+          in: query
+          description: Filter updated at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PaginationResponseConfirmingInvoiceStatusHistoryDTO'
+    post:
+      tags:
+        - ConfirmingInvoiceStatusHistory
+      summary: Create a new invoice status history entry
+      operationId: create_3
+      parameters:
+        - name: confirmingAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: confirmingInvoiceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfirmingInvoiceStatusHistoryDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ConfirmingInvoiceStatusHistoryDTO'
+  /api/v1/confirming-agreements/{confirmingAgreementId}/invoices/{confirmingInvoiceId}/settlements:
+    get:
+      tags:
+        - ConfirmingInvoiceSettlement
+      summary: List or search settlement records for a confirming invoice
+      operationId: findAll_4
+      parameters:
+        - name: confirmingAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: confirmingInvoiceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: pagination.pageNumber
+          in: query
+          description: Page number (0-based)
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: pagination.pageSize
+          in: query
+          description: Number of items per page
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: pagination.sortBy
+          in: query
+          description: Field to sort by
+          required: false
+          schema:
+            type: string
+        - name: pagination.sortDirection
+          in: query
+          description: Sort direction (ASC or DESC)
+          required: false
+          schema:
+            type: string
+            default: DESC
+        - name: options.caseInsensitiveStrings
+          in: query
+          description: Enable case-insensitive string filtering
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: options.includeInheritedFields
+          in: query
+          description: Include fields from parent classes
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: filters.confirmingInvoiceId
+          in: query
+          description: Exact filter for confirming invoice id
+          required: false
+          schema:
+            type: string
+        - name: filters.transactionId
+          in: query
+          description: Exact filter for transaction id
+          required: false
+          schema:
+            type: string
+        - name: filters.settlementDate
+          in: query
+          description: Exact filter for settlement date
+          required: false
+          schema:
+            type: string
+        - name: filters.settlementAmount
+          in: query
+          description: Exact filter for settlement amount
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[settlementAmount].from
+          in: query
+          description: Filter settlement amount from value
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[settlementAmount].to
+          in: query
+          description: Filter settlement amount to value
+          required: false
+          schema:
+            type: string
+        - name: filters.feesDeducted
+          in: query
+          description: Exact filter for fees deducted
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[feesDeducted].from
+          in: query
+          description: Filter fees deducted from value
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[feesDeducted].to
+          in: query
+          description: Filter fees deducted to value
+          required: false
+          schema:
+            type: string
+        - name: filters.netReconciliation
+          in: query
+          description: Exact filter for net reconciliation
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[netReconciliation].from
+          in: query
+          description: Filter net reconciliation from value
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[netReconciliation].to
+          in: query
+          description: Filter net reconciliation to value
+          required: false
+          schema:
+            type: string
+        - name: filters.isClosed
+          in: query
+          description: Exact filter for is closed
+          required: false
+          schema:
+            type: boolean
+        - name: filters.note
+          in: query
+          description: Exact filter for note
+          required: false
+          schema:
+            type: string
+        - name: filters.createdAt
+          in: query
+          description: Exact filter for created at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].from
+          in: query
+          description: Filter created at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].to
+          in: query
+          description: Filter created at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: filters.updatedAt
+          in: query
+          description: Exact filter for updated at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].from
+          in: query
+          description: Filter updated at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].to
+          in: query
+          description: Filter updated at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PaginationResponseConfirmingInvoiceSettlementDTO'
+    post:
+      tags:
+        - ConfirmingInvoiceSettlement
+      summary: Create a new settlement record (payment from buyer)
+      operationId: create_4
+      parameters:
+        - name: confirmingAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: confirmingInvoiceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfirmingInvoiceSettlementDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ConfirmingInvoiceSettlementDTO'
+  /api/v1/confirming-agreements/{confirmingAgreementId}/invoices/{confirmingInvoiceId}/advances:
+    get:
+      tags:
+        - ConfirmingAdvance
+      summary: List or search advances for a confirming invoice
+      operationId: findAll_5
+      parameters:
+        - name: confirmingAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: confirmingInvoiceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: pagination.pageNumber
+          in: query
+          description: Page number (0-based)
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: pagination.pageSize
+          in: query
+          description: Number of items per page
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: pagination.sortBy
+          in: query
+          description: Field to sort by
+          required: false
+          schema:
+            type: string
+        - name: pagination.sortDirection
+          in: query
+          description: Sort direction (ASC or DESC)
+          required: false
+          schema:
+            type: string
+            default: DESC
+        - name: options.caseInsensitiveStrings
+          in: query
+          description: Enable case-insensitive string filtering
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: options.includeInheritedFields
+          in: query
+          description: Include fields from parent classes
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: filters.confirmingInvoiceId
+          in: query
+          description: Exact filter for confirming invoice id
+          required: false
+          schema:
+            type: string
+        - name: filters.transactionId
+          in: query
+          description: Exact filter for transaction id
+          required: false
+          schema:
+            type: string
+        - name: filters.advanceAmount
+          in: query
+          description: Exact filter for advance amount
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[advanceAmount].from
+          in: query
+          description: Filter advance amount from value
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[advanceAmount].to
+          in: query
+          description: Filter advance amount to value
+          required: false
+          schema:
+            type: string
+        - name: filters.advanceDate
+          in: query
+          description: Exact filter for advance date
+          required: false
+          schema:
+            type: string
+        - name: filters.isFinalAdvance
+          in: query
+          description: Exact filter for is final advance
+          required: false
+          schema:
+            type: boolean
+        - name: filters.note
+          in: query
+          description: Exact filter for note
+          required: false
+          schema:
+            type: string
+        - name: filters.createdAt
+          in: query
+          description: Exact filter for created at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].from
+          in: query
+          description: Filter created at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].to
+          in: query
+          description: Filter created at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: filters.updatedAt
+          in: query
+          description: Exact filter for updated at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].from
+          in: query
+          description: Filter updated at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].to
+          in: query
+          description: Filter updated at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PaginationResponseConfirmingAdvanceDTO'
+    post:
+      tags:
+        - ConfirmingAdvance
+      summary: Create a new early payment advance record
+      operationId: create_5
+      parameters:
+        - name: confirmingAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: confirmingInvoiceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfirmingAdvanceDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ConfirmingAdvanceDTO'
+  /api/v1/confirming-agreements/{confirmingAgreementId}/fees:
+    get:
+      tags:
+        - ConfirmingFee
+      summary: List or search fees for a confirming agreement
+      operationId: findAll_6
+      parameters:
+        - name: confirmingAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: pagination.pageNumber
+          in: query
+          description: Page number (0-based)
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: pagination.pageSize
+          in: query
+          description: Number of items per page
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: pagination.sortBy
+          in: query
+          description: Field to sort by
+          required: false
+          schema:
+            type: string
+        - name: pagination.sortDirection
+          in: query
+          description: Sort direction (ASC or DESC)
+          required: false
+          schema:
+            type: string
+            default: DESC
+        - name: options.caseInsensitiveStrings
+          in: query
+          description: Enable case-insensitive string filtering
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: options.includeInheritedFields
+          in: query
+          description: Include fields from parent classes
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: filters.confirmingAgreementId
+          in: query
+          description: Exact filter for confirming agreement id
+          required: false
+          schema:
+            type: string
+        - name: filters.feeType
+          in: query
+          description: Exact filter for fee type
+          required: false
+          schema:
+            type: string
+            enum:
+              - DISCOUNT_FEE
+              - ADMIN_FEE
+              - SERVICE_FEE
+              - LATE_FEE
+              - EARLY_PAYMENT_FEE
+        - name: filters.feeRate
+          in: query
+          description: Exact filter for fee rate
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[feeRate].from
+          in: query
+          description: Filter fee rate from value
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[feeRate].to
+          in: query
+          description: Filter fee rate to value
+          required: false
+          schema:
+            type: string
+        - name: filters.minFee
+          in: query
+          description: Exact filter for min fee
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[minFee].from
+          in: query
+          description: Filter min fee from value
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[minFee].to
+          in: query
+          description: Filter min fee to value
+          required: false
+          schema:
+            type: string
+        - name: filters.maxFee
+          in: query
+          description: Exact filter for max fee
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[maxFee].from
+          in: query
+          description: Filter max fee from value
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[maxFee].to
+          in: query
+          description: Filter max fee to value
+          required: false
+          schema:
+            type: string
+        - name: filters.isActive
+          in: query
+          description: Exact filter for is active
+          required: false
+          schema:
+            type: boolean
+        - name: filters.note
+          in: query
+          description: Exact filter for note
+          required: false
+          schema:
+            type: string
+        - name: filters.createdAt
+          in: query
+          description: Exact filter for created at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].from
+          in: query
+          description: Filter created at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].to
+          in: query
+          description: Filter created at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: filters.updatedAt
+          in: query
+          description: Exact filter for updated at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].from
+          in: query
+          description: Filter updated at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].to
+          in: query
+          description: Filter updated at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PaginationResponseConfirmingFeeDTO'
+    post:
+      tags:
+        - ConfirmingFee
+      summary: Create a new fee configuration
+      operationId: create_6
+      parameters:
+        - name: confirmingAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfirmingFeeDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ConfirmingFeeDTO'
+components:
+  schemas:
+    ConfirmingAgreementDTO:
+      required:
+        - agreementStatus
+        - contractId
+        - creditLimit
+        - customerId
+        - defaultAdvanceRate
+        - endDate
+        - startDate
+        - supplierEarlyPaymentOption
+      type: object
+      properties:
+        confirmingAgreementId:
+          type: string
+          format: uuid
+          readOnly: true
+        contractId:
+          type: string
+          format: uuid
+        customerId:
+          type: string
+          format: uuid
+        agreementStatus:
+          type: string
+          enum:
+            - ACTIVE
+            - CLOSED
+            - SUSPENDED
+            - TERMINATED
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        creditLimit:
+          minimum: 0.01
+          exclusiveMinimum: false
+          type: number
+        supplierEarlyPaymentOption:
+          type: boolean
+        defaultAdvanceRate:
+          maximum: 1
+          exclusiveMaximum: false
+          minimum: 0
+          exclusiveMinimum: false
+          type: number
+        remarks:
+          maxLength: 1000
+          minLength: 0
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+        updatedAt:
+          type: string
+          format: date-time
+          readOnly: true
+    ConfirmingSupplierDTO:
+      required:
+        - canRequestEarlyPayment
+        - confirmingAgreementId
+        - supplierCustomerId
+        - supplierName
+      type: object
+      properties:
+        confirmingSupplierId:
+          type: string
+          format: uuid
+          readOnly: true
+        confirmingAgreementId:
+          type: string
+          format: uuid
+        supplierCustomerId:
+          type: string
+          format: uuid
+        supplierName:
+          maxLength: 255
+          minLength: 2
+          type: string
+        supplierIndividualLimit:
+          minimum: 0
+          exclusiveMinimum: false
+          type: number
+        canRequestEarlyPayment:
+          type: boolean
+        remarks:
+          maxLength: 1000
+          minLength: 0
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+        updatedAt:
+          type: string
+          format: date-time
+          readOnly: true
+    ConfirmingInvoiceDTO:
+      required:
+        - confirmingAgreementId
+        - confirmingSupplierId
+        - currencyCode
+        - dueDate
+        - invoiceAmount
+        - invoiceDate
+        - invoiceNumber
+        - invoiceStatus
+        - isConfirmedByBuyer
+      type: object
+      properties:
+        confirmingInvoiceId:
+          type: string
+          format: uuid
+          readOnly: true
+        confirmingAgreementId:
+          type: string
+          format: uuid
+        confirmingSupplierId:
+          type: string
+          format: uuid
+        invoiceNumber:
+          maxLength: 100
+          minLength: 1
+          type: string
+        invoiceDate:
+          type: string
+          format: date
+        dueDate:
+          type: string
+          format: date
+        invoiceAmount:
+          minimum: 0.01
+          exclusiveMinimum: false
+          type: number
+        confirmedAmount:
+          minimum: 0
+          exclusiveMinimum: false
+          type: number
+        currencyCode:
+          type: string
+          enum:
+            - EUR
+            - USD
+            - GBP
+            - CHF
+        invoiceStatus:
+          type: string
+          enum:
+            - CONFIRMED
+            - EARLY_PAID
+            - SETTLED
+            - CANCELED
+            - DISPUTED
+            - DEFAULTED
+        isConfirmedByBuyer:
+          type: boolean
+        confirmationDate:
+          type: string
+          format: date
+        documentReference:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+        updatedAt:
+          type: string
+          format: date-time
+          readOnly: true
+    ConfirmingInvoiceStatusHistoryDTO:
+      required:
+        - changedAt
+        - changedBy
+        - confirmingInvoiceId
+        - newStatus
+        - oldStatus
+      type: object
+      properties:
+        confirmingInvoiceStatusHistoryId:
+          type: string
+          format: uuid
+          readOnly: true
+        confirmingInvoiceId:
+          type: string
+          format: uuid
+        oldStatus:
+          type: string
+          enum:
+            - CONFIRMED
+            - EARLY_PAID
+            - SETTLED
+            - CANCELED
+            - DISPUTED
+            - DEFAULTED
+        newStatus:
+          type: string
+          enum:
+            - CONFIRMED
+            - EARLY_PAID
+            - SETTLED
+            - CANCELED
+            - DISPUTED
+            - DEFAULTED
+        changedAt:
+          type: string
+          format: date-time
+        changedBy:
+          maxLength: 100
+          minLength: 1
+          type: string
+        reason:
+          maxLength: 500
+          minLength: 0
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+        updatedAt:
+          type: string
+          format: date-time
+          readOnly: true
+    ConfirmingInvoiceSettlementDTO:
+      required:
+        - confirmingInvoiceId
+        - isClosed
+        - settlementAmount
+        - settlementDate
+        - transactionId
+      type: object
+      properties:
+        confirmingInvoiceSettlementId:
+          type: string
+          format: uuid
+          readOnly: true
+        confirmingInvoiceId:
+          type: string
+          format: uuid
+        transactionId:
+          type: string
+          format: uuid
+        settlementDate:
+          type: string
+          format: date
+        settlementAmount:
+          minimum: 0
+          exclusiveMinimum: false
+          type: number
+        feesDeducted:
+          minimum: 0
+          exclusiveMinimum: false
+          type: number
+        netReconciliation:
+          type: number
+        isClosed:
+          type: boolean
+        note:
+          maxLength: 500
+          minLength: 0
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+        updatedAt:
+          type: string
+          format: date-time
+          readOnly: true
+    ConfirmingAdvanceDTO:
+      required:
+        - advanceAmount
+        - advanceDate
+        - confirmingInvoiceId
+        - isFinalAdvance
+        - transactionId
+      type: object
+      properties:
+        confirmingAdvanceId:
+          type: string
+          format: uuid
+          readOnly: true
+        confirmingInvoiceId:
+          type: string
+          format: uuid
+        transactionId:
+          type: string
+          format: uuid
+        advanceAmount:
+          minimum: 0.01
+          exclusiveMinimum: false
+          type: number
+        advanceDate:
+          type: string
+          format: date
+        isFinalAdvance:
+          type: boolean
+        note:
+          maxLength: 500
+          minLength: 0
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+        updatedAt:
+          type: string
+          format: date-time
+          readOnly: true
+    ConfirmingFeeDTO:
+      required:
+        - confirmingAgreementId
+        - feeRate
+        - feeType
+        - isActive
+      type: object
+      properties:
+        confirmingFeeId:
+          type: string
+          format: uuid
+          readOnly: true
+        confirmingAgreementId:
+          type: string
+          format: uuid
+        feeType:
+          type: string
+          enum:
+            - DISCOUNT_FEE
+            - ADMIN_FEE
+            - SERVICE_FEE
+            - LATE_FEE
+            - EARLY_PAYMENT_FEE
+        feeRate:
+          maximum: 1
+          exclusiveMaximum: false
+          minimum: 0
+          exclusiveMinimum: false
+          type: number
+        minFee:
+          minimum: 0
+          exclusiveMinimum: false
+          type: number
+        maxFee:
+          minimum: 0
+          exclusiveMinimum: false
+          type: number
+        isActive:
+          type: boolean
+        note:
+          maxLength: 500
+          minLength: 0
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+        updatedAt:
+          type: string
+          format: date-time
+          readOnly: true
+    PaginationResponseConfirmingAgreementDTO:
+      type: object
+      properties:
+        content:
+          type: array
+          description: The list of items for the current page.
+          items:
+            $ref: '#/components/schemas/ConfirmingAgreementDTO'
+        totalElements:
+          type: integer
+          description: The total number of elements across all pages.
+          format: int64
+        totalPages:
+          type: integer
+          description: The total number of pages based on the data size and page size.
+          format: int32
+        currentPage:
+          type: integer
+          description: The current page number, typically zero-based.
+          format: int32
+      description: Represents a paginated response containing a list of items and pagination metadata.
+    PaginationResponseConfirmingSupplierDTO:
+      type: object
+      properties:
+        content:
+          type: array
+          description: The list of items for the current page.
+          items:
+            $ref: '#/components/schemas/ConfirmingSupplierDTO'
+        totalElements:
+          type: integer
+          description: The total number of elements across all pages.
+          format: int64
+        totalPages:
+          type: integer
+          description: The total number of pages based on the data size and page size.
+          format: int32
+        currentPage:
+          type: integer
+          description: The current page number, typically zero-based.
+          format: int32
+      description: Represents a paginated response containing a list of items and pagination metadata.
+    PaginationResponseConfirmingInvoiceDTO:
+      type: object
+      properties:
+        content:
+          type: array
+          description: The list of items for the current page.
+          items:
+            $ref: '#/components/schemas/ConfirmingInvoiceDTO'
+        totalElements:
+          type: integer
+          description: The total number of elements across all pages.
+          format: int64
+        totalPages:
+          type: integer
+          description: The total number of pages based on the data size and page size.
+          format: int32
+        currentPage:
+          type: integer
+          description: The current page number, typically zero-based.
+          format: int32
+      description: Represents a paginated response containing a list of items and pagination metadata.
+    PaginationResponseConfirmingInvoiceStatusHistoryDTO:
+      type: object
+      properties:
+        content:
+          type: array
+          description: The list of items for the current page.
+          items:
+            $ref: '#/components/schemas/ConfirmingInvoiceStatusHistoryDTO'
+        totalElements:
+          type: integer
+          description: The total number of elements across all pages.
+          format: int64
+        totalPages:
+          type: integer
+          description: The total number of pages based on the data size and page size.
+          format: int32
+        currentPage:
+          type: integer
+          description: The current page number, typically zero-based.
+          format: int32
+      description: Represents a paginated response containing a list of items and pagination metadata.
+    PaginationResponseConfirmingInvoiceSettlementDTO:
+      type: object
+      properties:
+        content:
+          type: array
+          description: The list of items for the current page.
+          items:
+            $ref: '#/components/schemas/ConfirmingInvoiceSettlementDTO'
+        totalElements:
+          type: integer
+          description: The total number of elements across all pages.
+          format: int64
+        totalPages:
+          type: integer
+          description: The total number of pages based on the data size and page size.
+          format: int32
+        currentPage:
+          type: integer
+          description: The current page number, typically zero-based.
+          format: int32
+      description: Represents a paginated response containing a list of items and pagination metadata.
+    PaginationResponseConfirmingAdvanceDTO:
+      type: object
+      properties:
+        content:
+          type: array
+          description: The list of items for the current page.
+          items:
+            $ref: '#/components/schemas/ConfirmingAdvanceDTO'
+        totalElements:
+          type: integer
+          description: The total number of elements across all pages.
+          format: int64
+        totalPages:
+          type: integer
+          description: The total number of pages based on the data size and page size.
+          format: int32
+        currentPage:
+          type: integer
+          description: The current page number, typically zero-based.
+          format: int32
+      description: Represents a paginated response containing a list of items and pagination metadata.
+    PaginationResponseConfirmingFeeDTO:
+      type: object
+      properties:
+        content:
+          type: array
+          description: The list of items for the current page.
+          items:
+            $ref: '#/components/schemas/ConfirmingFeeDTO'
+        totalElements:
+          type: integer
+          description: The total number of elements across all pages.
+          format: int64
+        totalPages:
+          type: integer
+          description: The total number of pages based on the data size and page size.
+          format: int32
+        currentPage:
+          type: integer
+          description: The current page number, typically zero-based.
+          format: int32
+      description: Represents a paginated response containing a list of items and pagination metadata.
