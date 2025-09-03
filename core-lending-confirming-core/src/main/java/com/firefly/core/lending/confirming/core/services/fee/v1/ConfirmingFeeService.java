@@ -5,6 +5,8 @@ import com.firefly.common.core.queries.PaginationResponse;
 import com.firefly.core.lending.confirming.interfaces.dtos.fee.v1.ConfirmingFeeDTO;
 import reactor.core.publisher.Mono;
 
+import java.util.UUID;
+
 public interface ConfirmingFeeService {
 
     /**
@@ -15,7 +17,7 @@ public interface ConfirmingFeeService {
      * @param filterRequest the filter criteria and pagination parameters used to retrieve the list of confirming fees
      * @return a reactive Mono containing the paginated response of confirming fees
      */
-    Mono<PaginationResponse<ConfirmingFeeDTO>> findAll(Long confirmingAgreementId,
+    Mono<PaginationResponse<ConfirmingFeeDTO>> findAll(UUID confirmingAgreementId,
                                                        FilterRequest<ConfirmingFeeDTO> filterRequest);
 
     /**
@@ -25,7 +27,7 @@ public interface ConfirmingFeeService {
      * @param dto the ConfirmingFeeDTO object containing the details of the fee to be created
      * @return a Mono emitting the created ConfirmingFeeDTO object with assigned IDs and details upon successful creation
      */
-    Mono<ConfirmingFeeDTO> create(Long confirmingAgreementId, ConfirmingFeeDTO dto);
+    Mono<ConfirmingFeeDTO> create(UUID confirmingAgreementId, ConfirmingFeeDTO dto);
 
     /**
      * Retrieves a ConfirmingFeeDTO based on the provided confirming agreement ID and confirming fee ID.
@@ -34,7 +36,7 @@ public interface ConfirmingFeeService {
      * @param confirmingFeeId the ID of the confirming fee to be retrieved
      * @return a Mono emitting the ConfirmingFeeDTO corresponding to the given IDs, or an empty Mono if not found
      */
-    Mono<ConfirmingFeeDTO> getById(Long confirmingAgreementId, Long confirmingFeeId);
+    Mono<ConfirmingFeeDTO> getById(UUID confirmingAgreementId, UUID confirmingFeeId);
 
     /**
      * Updates an existing confirming fee record associated with the specified confirming agreement and fee IDs.
@@ -44,7 +46,7 @@ public interface ConfirmingFeeService {
      * @param dto the ConfirmingFeeDTO containing the updated details for the confirming fee
      * @return a Mono emitting the updated ConfirmingFeeDTO upon successful completion
      */
-    Mono<ConfirmingFeeDTO> update(Long confirmingAgreementId, Long confirmingFeeId, ConfirmingFeeDTO dto);
+    Mono<ConfirmingFeeDTO> update(UUID confirmingAgreementId, UUID confirmingFeeId, ConfirmingFeeDTO dto);
 
     /**
      * Deletes a confirming fee identified by the given confirming agreement ID and confirming fee ID.
@@ -54,5 +56,5 @@ public interface ConfirmingFeeService {
      * @param confirmingFeeId the unique ID of the confirming fee to be deleted
      * @return a Mono signaling the completion of the delete operation or an error if the operation fails
      */
-    Mono<Void> delete(Long confirmingAgreementId, Long confirmingFeeId);
+    Mono<Void> delete(UUID confirmingAgreementId, UUID confirmingFeeId);
 }

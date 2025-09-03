@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Mono;
 
+import java.util.UUID;
+
 @Service
 @Transactional
 public class ConfirmingInvoiceStatusHistoryServiceImpl implements ConfirmingInvoiceStatusHistoryService {
@@ -23,7 +25,7 @@ public class ConfirmingInvoiceStatusHistoryServiceImpl implements ConfirmingInvo
     private ConfirmingInvoiceStatusHistoryMapper mapper;
 
     @Override
-    public Mono<PaginationResponse<ConfirmingInvoiceStatusHistoryDTO>> findAll(Long confirmingAgreementId, Long confirmingInvoiceId, FilterRequest<ConfirmingInvoiceStatusHistoryDTO> filterRequest) {
+    public Mono<PaginationResponse<ConfirmingInvoiceStatusHistoryDTO>> findAll(UUID confirmingAgreementId, UUID confirmingInvoiceId, FilterRequest<ConfirmingInvoiceStatusHistoryDTO> filterRequest) {
         filterRequest.getFilters().setConfirmingInvoiceId(confirmingInvoiceId);
         return FilterUtils.createFilter(
                 ConfirmingInvoiceStatusHistory.class,
@@ -32,7 +34,7 @@ public class ConfirmingInvoiceStatusHistoryServiceImpl implements ConfirmingInvo
     }
 
     @Override
-    public Mono<ConfirmingInvoiceStatusHistoryDTO> create(Long confirmingAgreementId, Long confirmingInvoiceId, ConfirmingInvoiceStatusHistoryDTO dto) {
+    public Mono<ConfirmingInvoiceStatusHistoryDTO> create(UUID confirmingAgreementId, UUID confirmingInvoiceId, ConfirmingInvoiceStatusHistoryDTO dto) {
         dto.setConfirmingInvoiceId(confirmingInvoiceId);
         ConfirmingInvoiceStatusHistory entity = mapper.toEntity(dto);
         return repository.save(entity)
@@ -40,14 +42,14 @@ public class ConfirmingInvoiceStatusHistoryServiceImpl implements ConfirmingInvo
     }
 
     @Override
-    public Mono<ConfirmingInvoiceStatusHistoryDTO> getById(Long confirmingAgreementId, Long confirmingInvoiceId, Long confirmingInvoiceStatusHistoryId) {
+    public Mono<ConfirmingInvoiceStatusHistoryDTO> getById(UUID confirmingAgreementId, UUID confirmingInvoiceId, UUID confirmingInvoiceStatusHistoryId) {
         return repository.findById(confirmingInvoiceStatusHistoryId)
                 .filter(entity -> entity.getConfirmingInvoiceId().equals(confirmingInvoiceId))
                 .map(mapper::toDTO);
     }
 
     @Override
-    public Mono<ConfirmingInvoiceStatusHistoryDTO> update(Long confirmingAgreementId, Long confirmingInvoiceId, Long confirmingInvoiceStatusHistoryId, ConfirmingInvoiceStatusHistoryDTO dto) {
+    public Mono<ConfirmingInvoiceStatusHistoryDTO> update(UUID confirmingAgreementId, UUID confirmingInvoiceId, UUID confirmingInvoiceStatusHistoryId, ConfirmingInvoiceStatusHistoryDTO dto) {
         return repository.findById(confirmingInvoiceStatusHistoryId)
                 .filter(entity -> entity.getConfirmingInvoiceId().equals(confirmingInvoiceId))
                 .flatMap(existingEntity -> {
@@ -60,7 +62,7 @@ public class ConfirmingInvoiceStatusHistoryServiceImpl implements ConfirmingInvo
     }
 
     @Override
-    public Mono<Void> delete(Long confirmingAgreementId, Long confirmingInvoiceId, Long confirmingInvoiceStatusHistoryId) {
+    public Mono<Void> delete(UUID confirmingAgreementId, UUID confirmingInvoiceId, UUID confirmingInvoiceStatusHistoryId) {
         return repository.findById(confirmingInvoiceStatusHistoryId)
                 .filter(entity -> entity.getConfirmingInvoiceId().equals(confirmingInvoiceId))
                 .flatMap(repository::delete);

@@ -5,6 +5,8 @@ import com.firefly.common.core.queries.PaginationResponse;
 import com.firefly.core.lending.confirming.interfaces.dtos.supplier.v1.ConfirmingSupplierDTO;
 import reactor.core.publisher.Mono;
 
+import java.util.UUID;
+
 public interface ConfirmingSupplierService {
 
     /**
@@ -15,7 +17,7 @@ public interface ConfirmingSupplierService {
      * @param filterRequest the filter criteria and pagination information used to retrieve the suppliers
      * @return a reactive Mono containing the paginated response of confirming suppliers
      */
-    Mono<PaginationResponse<ConfirmingSupplierDTO>> findAll(Long confirmingAgreementId,
+    Mono<PaginationResponse<ConfirmingSupplierDTO>> findAll(UUID confirmingAgreementId,
                                                             FilterRequest<ConfirmingSupplierDTO> filterRequest);
 
     /**
@@ -25,7 +27,7 @@ public interface ConfirmingSupplierService {
      * @param dto the ConfirmingSupplierDTO object containing the details of the supplier to be created
      * @return a Mono emitting the created ConfirmingSupplierDTO object, including assigned IDs and other details
      */
-    Mono<ConfirmingSupplierDTO> create(Long confirmingAgreementId, ConfirmingSupplierDTO dto);
+    Mono<ConfirmingSupplierDTO> create(UUID confirmingAgreementId, ConfirmingSupplierDTO dto);
 
     /**
      * Retrieves a ConfirmingSupplierDTO based on the given confirming agreement ID and confirming supplier ID.
@@ -34,7 +36,7 @@ public interface ConfirmingSupplierService {
      * @param confirmingSupplierId the ID of the confirming supplier to be retrieved
      * @return a Mono emitting the ConfirmingSupplierDTO corresponding to the provided IDs, or an empty Mono if not found
      */
-    Mono<ConfirmingSupplierDTO> getById(Long confirmingAgreementId, Long confirmingSupplierId);
+    Mono<ConfirmingSupplierDTO> getById(UUID confirmingAgreementId, UUID confirmingSupplierId);
 
     /**
      * Updates an existing confirming supplier record identified by its confirming agreement ID and confirming supplier ID.
@@ -44,7 +46,7 @@ public interface ConfirmingSupplierService {
      * @param dto the ConfirmingSupplierDTO containing the updated information for the confirming supplier
      * @return a Mono emitting the updated ConfirmingSupplierDTO upon successful completion
      */
-    Mono<ConfirmingSupplierDTO> update(Long confirmingAgreementId, Long confirmingSupplierId, ConfirmingSupplierDTO dto);
+    Mono<ConfirmingSupplierDTO> update(UUID confirmingAgreementId, UUID confirmingSupplierId, ConfirmingSupplierDTO dto);
 
     /**
      * Deletes a confirming supplier identified by the given confirming agreement ID
@@ -54,5 +56,5 @@ public interface ConfirmingSupplierService {
      * @param confirmingSupplierId the ID of the confirming supplier to be deleted
      * @return a Mono signaling the completion of the delete operation or an error if the operation fails
      */
-    Mono<Void> delete(Long confirmingAgreementId, Long confirmingSupplierId);
+    Mono<Void> delete(UUID confirmingAgreementId, UUID confirmingSupplierId);
 }

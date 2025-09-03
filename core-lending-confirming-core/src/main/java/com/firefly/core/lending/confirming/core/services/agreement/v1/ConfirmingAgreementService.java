@@ -5,6 +5,8 @@ import com.firefly.common.core.queries.PaginationResponse;
 import com.firefly.core.lending.confirming.interfaces.dtos.agreement.v1.ConfirmingAgreementDTO;
 import reactor.core.publisher.Mono;
 
+import java.util.UUID;
+
 public interface ConfirmingAgreementService {
 
     /**
@@ -29,7 +31,7 @@ public interface ConfirmingAgreementService {
      * @param confirmingAgreementId the ID of the confirming agreement to retrieve
      * @return a Mono emitting the ConfirmingAgreementDTO associated with the given ID, or an empty Mono if not found
      */
-    Mono<ConfirmingAgreementDTO> getById(Long confirmingAgreementId);
+    Mono<ConfirmingAgreementDTO> getById(UUID confirmingAgreementId);
 
     /**
      * Updates an existing ConfirmingAgreement identified by the given ID with the provided details.
@@ -38,7 +40,7 @@ public interface ConfirmingAgreementService {
      * @param dto the ConfirmingAgreementDTO containing updated details
      * @return a Mono emitting the updated ConfirmingAgreementDTO upon successful completion
      */
-    Mono<ConfirmingAgreementDTO> update(Long confirmingAgreementId, ConfirmingAgreementDTO dto);
+    Mono<ConfirmingAgreementDTO> update(UUID confirmingAgreementId, ConfirmingAgreementDTO dto);
 
     /**
      * Deletes a confirming agreement based on the given confirming agreement ID.
@@ -46,5 +48,5 @@ public interface ConfirmingAgreementService {
      * @param confirmingAgreementId the ID of the confirming agreement to be deleted
      * @return a Mono signaling completion of the delete operation, or an error if the operation fails
      */
-    Mono<Void> delete(Long confirmingAgreementId);
+    Mono<Void> delete(UUID confirmingAgreementId);
 }

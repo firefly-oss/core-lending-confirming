@@ -5,6 +5,8 @@ import com.firefly.common.core.queries.PaginationResponse;
 import com.firefly.core.lending.confirming.interfaces.dtos.invoice.v1.ConfirmingInvoiceStatusHistoryDTO;
 import reactor.core.publisher.Mono;
 
+import java.util.UUID;
+
 public interface ConfirmingInvoiceStatusHistoryService {
 
     /**
@@ -16,8 +18,8 @@ public interface ConfirmingInvoiceStatusHistoryService {
      * @param filterRequest the filter criteria and pagination parameters used to retrieve the list of confirming invoice status history entries
      * @return a reactive Mono containing the paginated response of confirming invoice status history entries
      */
-    Mono<PaginationResponse<ConfirmingInvoiceStatusHistoryDTO>> findAll(Long confirmingAgreementId,
-                                                                        Long confirmingInvoiceId,
+    Mono<PaginationResponse<ConfirmingInvoiceStatusHistoryDTO>> findAll(UUID confirmingAgreementId,
+                                                                        UUID confirmingInvoiceId,
                                                                         FilterRequest<ConfirmingInvoiceStatusHistoryDTO> filterRequest);
 
     /**
@@ -29,8 +31,8 @@ public interface ConfirmingInvoiceStatusHistoryService {
      * @param dto the ConfirmingInvoiceStatusHistoryDTO object containing the details of the status history to be created
      * @return a Mono emitting the created ConfirmingInvoiceStatusHistoryDTO object with assigned IDs and details upon successful creation
      */
-    Mono<ConfirmingInvoiceStatusHistoryDTO> create(Long confirmingAgreementId,
-                                                   Long confirmingInvoiceId,
+    Mono<ConfirmingInvoiceStatusHistoryDTO> create(UUID confirmingAgreementId,
+                                                   UUID confirmingInvoiceId,
                                                    ConfirmingInvoiceStatusHistoryDTO dto);
 
     /**
@@ -42,9 +44,9 @@ public interface ConfirmingInvoiceStatusHistoryService {
      * @param confirmingInvoiceStatusHistoryId the unique identifier of the confirming invoice status history to be retrieved
      * @return a Mono emitting the ConfirmingInvoiceStatusHistoryDTO corresponding to the given IDs, or an empty Mono if not found
      */
-    Mono<ConfirmingInvoiceStatusHistoryDTO> getById(Long confirmingAgreementId,
-                                                    Long confirmingInvoiceId,
-                                                    Long confirmingInvoiceStatusHistoryId);
+    Mono<ConfirmingInvoiceStatusHistoryDTO> getById(UUID confirmingAgreementId,
+                                                    UUID confirmingInvoiceId,
+                                                    UUID confirmingInvoiceStatusHistoryId);
 
     /**
      * Updates an existing confirming invoice status history entry associated with a specific
@@ -60,9 +62,9 @@ public interface ConfirmingInvoiceStatusHistoryService {
      *            the confirming invoice status history
      * @return a Mono emitting the updated ConfirmingInvoiceStatusHistoryDTO upon successful completion
      */
-    Mono<ConfirmingInvoiceStatusHistoryDTO> update(Long confirmingAgreementId,
-                                                   Long confirmingInvoiceId,
-                                                   Long confirmingInvoiceStatusHistoryId,
+    Mono<ConfirmingInvoiceStatusHistoryDTO> update(UUID confirmingAgreementId,
+                                                   UUID confirmingInvoiceId,
+                                                   UUID confirmingInvoiceStatusHistoryId,
                                                    ConfirmingInvoiceStatusHistoryDTO dto);
 
     /**
@@ -75,5 +77,5 @@ public interface ConfirmingInvoiceStatusHistoryService {
      * @param confirmingInvoiceStatusHistoryId the unique identifier of the confirming invoice status history to be deleted
      * @return a Mono signaling the completion of the delete operation or an error if the operation fails
      */
-    Mono<Void> delete(Long confirmingAgreementId, Long confirmingInvoiceId, Long confirmingInvoiceStatusHistoryId);
+    Mono<Void> delete(UUID confirmingAgreementId, UUID confirmingInvoiceId, UUID confirmingInvoiceStatusHistoryId);
 }

@@ -5,6 +5,8 @@ import com.firefly.common.core.queries.PaginationResponse;
 import com.firefly.core.lending.confirming.interfaces.dtos.invoice.v1.ConfirmingInvoiceSettlementDTO;
 import reactor.core.publisher.Mono;
 
+import java.util.UUID;
+
 public interface ConfirmingInvoiceSettlementService {
 
     /**
@@ -16,8 +18,8 @@ public interface ConfirmingInvoiceSettlementService {
      * @param filterRequest the filter criteria and pagination parameters used to retrieve the list of confirming invoice settlements
      * @return a reactive Mono containing the paginated response of confirming invoice settlements
      */
-    Mono<PaginationResponse<ConfirmingInvoiceSettlementDTO>> findAll(Long confirmingAgreementId,
-                                                                     Long confirmingInvoiceId,
+    Mono<PaginationResponse<ConfirmingInvoiceSettlementDTO>> findAll(UUID confirmingAgreementId,
+                                                                     UUID confirmingInvoiceId,
                                                                      FilterRequest<ConfirmingInvoiceSettlementDTO> filterRequest);
 
     /**
@@ -29,8 +31,8 @@ public interface ConfirmingInvoiceSettlementService {
      * @param dto the ConfirmingInvoiceSettlementDTO object containing the details of the settlement to be created
      * @return a Mono emitting the created ConfirmingInvoiceSettlementDTO object with assigned IDs and details upon successful creation
      */
-    Mono<ConfirmingInvoiceSettlementDTO> create(Long confirmingAgreementId,
-                                                Long confirmingInvoiceId,
+    Mono<ConfirmingInvoiceSettlementDTO> create(UUID confirmingAgreementId,
+                                                UUID confirmingInvoiceId,
                                                 ConfirmingInvoiceSettlementDTO dto);
 
     /**
@@ -42,9 +44,9 @@ public interface ConfirmingInvoiceSettlementService {
      * @param confirmingInvoiceSettlementId the unique identifier of the confirming invoice settlement to be retrieved
      * @return a Mono emitting the ConfirmingInvoiceSettlementDTO corresponding to the given IDs, or an empty Mono if not found
      */
-    Mono<ConfirmingInvoiceSettlementDTO> getById(Long confirmingAgreementId,
-                                                 Long confirmingInvoiceId,
-                                                 Long confirmingInvoiceSettlementId);
+    Mono<ConfirmingInvoiceSettlementDTO> getById(UUID confirmingAgreementId,
+                                                 UUID confirmingInvoiceId,
+                                                 UUID confirmingInvoiceSettlementId);
 
     /**
      * Updates an existing confirming invoice settlement record associated with the specified confirming agreement ID,
@@ -56,9 +58,9 @@ public interface ConfirmingInvoiceSettlementService {
      * @param dto the ConfirmingInvoiceSettlementDTO containing the updated details for the confirming invoice settlement
      * @return a Mono emitting the updated ConfirmingInvoiceSettlementDTO upon successful completion
      */
-    Mono<ConfirmingInvoiceSettlementDTO> update(Long confirmingAgreementId,
-                                                Long confirmingInvoiceId,
-                                                Long confirmingInvoiceSettlementId,
+    Mono<ConfirmingInvoiceSettlementDTO> update(UUID confirmingAgreementId,
+                                                UUID confirmingInvoiceId,
+                                                UUID confirmingInvoiceSettlementId,
                                                 ConfirmingInvoiceSettlementDTO dto);
 
     /**
@@ -71,5 +73,5 @@ public interface ConfirmingInvoiceSettlementService {
      * @param confirmingInvoiceSettlementId the unique identifier of the confirming invoice settlement to be deleted
      * @return a Mono signaling the completion of the delete operation or an error if the operation fails
      */
-    Mono<Void> delete(Long confirmingAgreementId, Long confirmingInvoiceId, Long confirmingInvoiceSettlementId);
+    Mono<Void> delete(UUID confirmingAgreementId, UUID confirmingInvoiceId, UUID confirmingInvoiceSettlementId);
 }

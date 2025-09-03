@@ -5,6 +5,8 @@ import com.firefly.common.core.queries.PaginationResponse;
 import com.firefly.core.lending.confirming.interfaces.dtos.advance.v1.ConfirmingAdvanceDTO;
 import reactor.core.publisher.Mono;
 
+import java.util.UUID;
+
 public interface ConfirmingAdvanceService {
 
     /**
@@ -16,8 +18,8 @@ public interface ConfirmingAdvanceService {
      * @param filterRequest the filter criteria and pagination parameters used to retrieve the list of confirming advances
      * @return a reactive Mono containing the paginated response of confirming advances
      */
-    Mono<PaginationResponse<ConfirmingAdvanceDTO>> findAll(Long confirmingAgreementId,
-                                                           Long confirmingInvoiceId,
+    Mono<PaginationResponse<ConfirmingAdvanceDTO>> findAll(UUID confirmingAgreementId,
+                                                           UUID confirmingInvoiceId,
                                                            FilterRequest<ConfirmingAdvanceDTO> filterRequest);
 
     /**
@@ -28,8 +30,8 @@ public interface ConfirmingAdvanceService {
      * @param dto the ConfirmingAdvanceDTO object containing the details of the advance to be created
      * @return a Mono emitting the created ConfirmingAdvanceDTO object with assigned IDs and details upon successful creation
      */
-    Mono<ConfirmingAdvanceDTO> create(Long confirmingAgreementId,
-                                      Long confirmingInvoiceId,
+    Mono<ConfirmingAdvanceDTO> create(UUID confirmingAgreementId,
+                                      UUID confirmingInvoiceId,
                                       ConfirmingAdvanceDTO dto);
 
     /**
@@ -41,9 +43,9 @@ public interface ConfirmingAdvanceService {
      * @param confirmingAdvanceId the unique identifier of the confirming advance to be retrieved
      * @return a Mono emitting the ConfirmingAdvanceDTO corresponding to the given IDs, or an empty Mono if not found
      */
-    Mono<ConfirmingAdvanceDTO> getById(Long confirmingAgreementId,
-                                       Long confirmingInvoiceId,
-                                       Long confirmingAdvanceId);
+    Mono<ConfirmingAdvanceDTO> getById(UUID confirmingAgreementId,
+                                       UUID confirmingInvoiceId,
+                                       UUID confirmingAdvanceId);
 
     /**
      * Updates an existing confirming advance associated with a specified confirming agreement,
@@ -55,9 +57,9 @@ public interface ConfirmingAdvanceService {
      * @param dto the ConfirmingAdvanceDTO containing the updated details for the confirming advance
      * @return a Mono emitting the updated ConfirmingAdvanceDTO upon successful completion
      */
-    Mono<ConfirmingAdvanceDTO> update(Long confirmingAgreementId,
-                                      Long confirmingInvoiceId,
-                                      Long confirmingAdvanceId,
+    Mono<ConfirmingAdvanceDTO> update(UUID confirmingAgreementId,
+                                      UUID confirmingInvoiceId,
+                                      UUID confirmingAdvanceId,
                                       ConfirmingAdvanceDTO dto);
 
     /**
@@ -70,7 +72,7 @@ public interface ConfirmingAdvanceService {
      * @param confirmingAdvanceId the unique identifier of the confirming advance to be deleted
      * @return a Mono signaling the completion of the delete operation or an error if the operation fails
      */
-    Mono<Void> delete(Long confirmingAgreementId,
-                      Long confirmingInvoiceId,
-                      Long confirmingAdvanceId);
+    Mono<Void> delete(UUID confirmingAgreementId,
+                      UUID confirmingInvoiceId,
+                      UUID confirmingAdvanceId);
 }

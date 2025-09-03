@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Mono;
 
+import java.util.UUID;
+
 @Service
 @Transactional
 public class ConfirmingAgreementServiceImpl implements ConfirmingAgreementService {
@@ -40,13 +42,13 @@ public class ConfirmingAgreementServiceImpl implements ConfirmingAgreementServic
     }
 
     @Override
-    public Mono<ConfirmingAgreementDTO> getById(Long confirmingAgreementId) {
+    public Mono<ConfirmingAgreementDTO> getById(UUID confirmingAgreementId) {
         return repository.findById(confirmingAgreementId)
                 .map(mapper::toDTO);
     }
 
     @Override
-    public Mono<ConfirmingAgreementDTO> update(Long confirmingAgreementId, ConfirmingAgreementDTO dto) {
+    public Mono<ConfirmingAgreementDTO> update(UUID confirmingAgreementId, ConfirmingAgreementDTO dto) {
         return repository.findById(confirmingAgreementId)
                 .flatMap(existing -> {
                     ConfirmingAgreement updated = mapper.toEntity(dto);
@@ -59,7 +61,7 @@ public class ConfirmingAgreementServiceImpl implements ConfirmingAgreementServic
     }
 
     @Override
-    public Mono<Void> delete(Long confirmingAgreementId) {
+    public Mono<Void> delete(UUID confirmingAgreementId) {
         return repository.deleteById(confirmingAgreementId);
     }
 }

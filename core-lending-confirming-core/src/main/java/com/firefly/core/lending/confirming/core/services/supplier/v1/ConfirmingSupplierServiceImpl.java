@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Mono;
 
+import java.util.UUID;
+
 @Service
 @Transactional
 public class ConfirmingSupplierServiceImpl implements ConfirmingSupplierService {
@@ -23,7 +25,7 @@ public class ConfirmingSupplierServiceImpl implements ConfirmingSupplierService 
     private ConfirmingSupplierMapper mapper;
 
     @Override
-    public Mono<PaginationResponse<ConfirmingSupplierDTO>> findAll(Long confirmingAgreementId, FilterRequest<ConfirmingSupplierDTO> filterRequest) {
+    public Mono<PaginationResponse<ConfirmingSupplierDTO>> findAll(UUID confirmingAgreementId, FilterRequest<ConfirmingSupplierDTO> filterRequest) {
         filterRequest.getFilters().setConfirmingAgreementId(confirmingAgreementId);
         return FilterUtils.createFilter(
                 ConfirmingSupplier.class,
@@ -32,7 +34,7 @@ public class ConfirmingSupplierServiceImpl implements ConfirmingSupplierService 
     }
 
     @Override
-    public Mono<ConfirmingSupplierDTO> create(Long confirmingAgreementId, ConfirmingSupplierDTO dto) {
+    public Mono<ConfirmingSupplierDTO> create(UUID confirmingAgreementId, ConfirmingSupplierDTO dto) {
         dto.setConfirmingAgreementId(confirmingAgreementId);
         ConfirmingSupplier entity = mapper.toEntity(dto);
         return repository.save(entity)
@@ -40,14 +42,14 @@ public class ConfirmingSupplierServiceImpl implements ConfirmingSupplierService 
     }
 
     @Override
-    public Mono<ConfirmingSupplierDTO> getById(Long confirmingAgreementId, Long confirmingSupplierId) {
+    public Mono<ConfirmingSupplierDTO> getById(UUID confirmingAgreementId, UUID confirmingSupplierId) {
         return repository.findById(confirmingSupplierId)
                 .filter(supplier -> confirmingAgreementId.equals(supplier.getConfirmingAgreementId()))
                 .map(mapper::toDTO);
     }
 
     @Override
-    public Mono<ConfirmingSupplierDTO> update(Long confirmingAgreementId, Long confirmingSupplierId, ConfirmingSupplierDTO dto) {
+    public Mono<ConfirmingSupplierDTO> update(UUID confirmingAgreementId, UUID confirmingSupplierId, ConfirmingSupplierDTO dto) {
         return repository.findById(confirmingSupplierId)
                 .filter(supplier -> confirmingAgreementId.equals(supplier.getConfirmingAgreementId()))
                 .flatMap(existingSupplier -> {
@@ -60,7 +62,7 @@ public class ConfirmingSupplierServiceImpl implements ConfirmingSupplierService 
     }
 
     @Override
-    public Mono<Void> delete(Long confirmingAgreementId, Long confirmingSupplierId) {
+    public Mono<Void> delete(UUID confirmingAgreementId, UUID confirmingSupplierId) {
         return repository.findById(confirmingSupplierId)
                 .filter(supplier -> confirmingAgreementId.equals(supplier.getConfirmingAgreementId()))
                 .flatMap(repository::delete)

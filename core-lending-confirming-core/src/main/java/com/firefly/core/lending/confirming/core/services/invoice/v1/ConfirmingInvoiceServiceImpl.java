@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Mono;
 
+import java.util.UUID;
+
 @Service
 @Transactional
 public class ConfirmingInvoiceServiceImpl implements ConfirmingInvoiceService {
@@ -23,7 +25,7 @@ public class ConfirmingInvoiceServiceImpl implements ConfirmingInvoiceService {
     private ConfirmingInvoiceMapper mapper;
 
     @Override
-    public Mono<PaginationResponse<ConfirmingInvoiceDTO>> findAll(Long confirmingAgreementId, FilterRequest<ConfirmingInvoiceDTO> filterRequest) {
+    public Mono<PaginationResponse<ConfirmingInvoiceDTO>> findAll(UUID confirmingAgreementId, FilterRequest<ConfirmingInvoiceDTO> filterRequest) {
         filterRequest.getFilters().setConfirmingAgreementId(confirmingAgreementId);
         return FilterUtils.createFilter(
                 ConfirmingInvoice.class,
@@ -32,7 +34,7 @@ public class ConfirmingInvoiceServiceImpl implements ConfirmingInvoiceService {
     }
 
     @Override
-    public Mono<ConfirmingInvoiceDTO> create(Long confirmingAgreementId, ConfirmingInvoiceDTO dto) {
+    public Mono<ConfirmingInvoiceDTO> create(UUID confirmingAgreementId, ConfirmingInvoiceDTO dto) {
         dto.setConfirmingAgreementId(confirmingAgreementId);
         ConfirmingInvoice entity = mapper.toEntity(dto);
         return repository.save(entity)
@@ -40,14 +42,14 @@ public class ConfirmingInvoiceServiceImpl implements ConfirmingInvoiceService {
     }
 
     @Override
-    public Mono<ConfirmingInvoiceDTO> getById(Long confirmingAgreementId, Long confirmingInvoiceId) {
+    public Mono<ConfirmingInvoiceDTO> getById(UUID confirmingAgreementId, UUID confirmingInvoiceId) {
         return repository.findById(confirmingInvoiceId)
                 .filter(entity -> entity.getConfirmingAgreementId().equals(confirmingAgreementId))
                 .map(mapper::toDTO);
     }
 
     @Override
-    public Mono<ConfirmingInvoiceDTO> update(Long confirmingAgreementId, Long confirmingInvoiceId, ConfirmingInvoiceDTO dto) {
+    public Mono<ConfirmingInvoiceDTO> update(UUID confirmingAgreementId, UUID confirmingInvoiceId, ConfirmingInvoiceDTO dto) {
         return repository.findById(confirmingInvoiceId)
                 .filter(entity -> entity.getConfirmingAgreementId().equals(confirmingAgreementId))
                 .flatMap(existingEntity -> {
@@ -59,7 +61,7 @@ public class ConfirmingInvoiceServiceImpl implements ConfirmingInvoiceService {
     }
 
     @Override
-    public Mono<Void> delete(Long confirmingAgreementId, Long confirmingInvoiceId) {
+    public Mono<Void> delete(UUID confirmingAgreementId, UUID confirmingInvoiceId) {
         return repository.findById(confirmingInvoiceId)
                 .filter(entity -> entity.getConfirmingAgreementId().equals(confirmingAgreementId))
                 .flatMap(repository::delete);
