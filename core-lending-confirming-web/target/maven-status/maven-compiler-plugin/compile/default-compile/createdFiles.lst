@@ -1,0 +1,8 @@
+com/firefly/core/lending/confirming/web/controllers/invoice/v1/ConfirmingInvoiceSettlementController.class
+com/firefly/core/lending/confirming/web/controllers/supplier/v1/ConfirmingSupplierController.class
+com/firefly/core/lending/confirming/web/controllers/advance/v1/ConfirmingAdvanceController.class
+com/firefly/core/lending/confirming/web/controllers/invoice/v1/ConfirmingInvoiceStatusHistoryController.class
+com/firefly/core/lending/confirming/web/controllers/fee/v1/ConfirmingFeeController.class
+com/firefly/core/lending/confirming/web/LendingConfirmingApplication.class
+com/firefly/core/lending/confirming/web/controllers/invoice/v1/ConfirmingInvoiceController.class
+com/firefly/core/lending/confirming/web/controllers/agreement/v1/ConfirmingAgreementController.class

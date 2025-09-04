@@ -1,0 +1,15 @@
+/Users/ancongui/Development/firefly/core-lending-confirming/core-lending-confirming-models/src/main/java/com/firefly/core/lending/confirming/models/repositories/fee/v1/ConfirmingFeeRepository.java
+/Users/ancongui/Development/firefly/core-lending-confirming/core-lending-confirming-models/src/main/java/com/firefly/core/lending/confirming/models/repositories/invoice/v1/ConfirmingInvoiceSettlementRepository.java
+/Users/ancongui/Development/firefly/core-lending-confirming/core-lending-confirming-models/src/main/java/com/firefly/core/lending/confirming/models/entities/agreement/v1/ConfirmingAgreement.java
+/Users/ancongui/Development/firefly/core-lending-confirming/core-lending-confirming-models/src/main/java/com/firefly/core/lending/confirming/models/entities/invoice/v1/ConfirmingInvoiceSettlement.java
+/Users/ancongui/Development/firefly/core-lending-confirming/core-lending-confirming-models/src/main/java/com/firefly/core/lending/confirming/models/entities/advance/v1/ConfirmingAdvance.java
+/Users/ancongui/Development/firefly/core-lending-confirming/core-lending-confirming-models/src/main/java/com/firefly/core/lending/confirming/models/repositories/advance/v1/ConfirmingAdvanceRepository.java
+/Users/ancongui/Development/firefly/core-lending-confirming/core-lending-confirming-models/src/main/java/com/firefly/core/lending/confirming/models/repositories/BaseRepository.java
+/Users/ancongui/Development/firefly/core-lending-confirming/core-lending-confirming-models/src/main/java/com/firefly/core/lending/confirming/models/entities/fee/v1/ConfirmingFee.java
+/Users/ancongui/Development/firefly/core-lending-confirming/core-lending-confirming-models/src/main/java/com/firefly/core/lending/confirming/models/repositories/agreement/v1/ConfirmingAgreementRepository.java
+/Users/ancongui/Development/firefly/core-lending-confirming/core-lending-confirming-models/src/main/java/com/firefly/core/lending/confirming/models/repositories/invoice/v1/ConfirmingInvoiceRepository.java
+/Users/ancongui/Development/firefly/core-lending-confirming/core-lending-confirming-models/src/main/java/com/firefly/core/lending/confirming/models/repositories/supplier/v1/ConfirmingSupplierRepository.java
+/Users/ancongui/Development/firefly/core-lending-confirming/core-lending-confirming-models/src/main/java/com/firefly/core/lending/confirming/models/entities/invoice/v1/ConfirmingInvoiceStatusHistory.java
+/Users/ancongui/Development/firefly/core-lending-confirming/core-lending-confirming-models/src/main/java/com/firefly/core/lending/confirming/models/entities/supplier/v1/ConfirmingSupplier.java
+/Users/ancongui/Development/firefly/core-lending-confirming/core-lending-confirming-models/src/main/java/com/firefly/core/lending/confirming/models/repositories/invoice/v1/ConfirmingInvoiceStatusHistoryRepository.java
+/Users/ancongui/Development/firefly/core-lending-confirming/core-lending-confirming-models/src/main/java/com/firefly/core/lending/confirming/models/entities/invoice/v1/ConfirmingInvoice.java
